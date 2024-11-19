@@ -1,4 +1,2 @@
-1+1
-5+5
-10+10
-head(Nile)
+data = read.csv("data1.csv")
+head(data)
