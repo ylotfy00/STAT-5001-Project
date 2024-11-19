@@ -42,7 +42,8 @@ library(igraph)
 
 if (!require("igraphdata")) install.packages("igraphdata")
 library(igraphdata)
-
-if (!require("TDA")) install.packages("TDA")
-library(TDA)
-}
+  
+if (!require("TDAmapper")) remotes::install_github("corybrunson/tdaunif")
+library(tdaunif)
+  
+if (!require("TDA")) install.packages("TDA") library(TDA)
