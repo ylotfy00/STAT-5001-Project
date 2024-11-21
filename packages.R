@@ -46,7 +46,10 @@ library(igraphdata)
   
 if (!require("TDAmapper")) remotes::install_github("corybrunson/tdaunif")
 library(tdaunif)
-  
+  # 
 if (!require("TDA")) install.packages("TDA") 
 library(TDA)
 }
+
+install.packages("tuneR")
+install.packages("seewave")
