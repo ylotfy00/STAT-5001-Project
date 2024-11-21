@@ -6,22 +6,41 @@ data = read.csv("data1.csv")
 ########################################################
 # Takens Embedding                                     #
 ########################################################
-n = 1000
+# Embedding parameters
+n = 500
 d = 2
+tau = 10  # You can adjust tau based on your needs
 
-cab_roll = data[2]
+# Initialize an empty list to store Takens embeddings for each column
+Takens_results <- list()
 
+# Loop over each column in the data
+for (col_name in colnames(data[1:10])) {
+  
+  # Extract the current column
+  embeding_data = data[[col_name]]
+  
+  # Convert to numeric (if necessary)
+  ts = as.numeric(embeding_data)
+  
+  # Takens embedding
+  Takens = t(purrr::map_dfc(1:(n-(d-1)*tau), ~ ts[seq(from = .x, by = tau, length.out = d)]))
+  
+  # Store the Takens embedding for the current column
+  Takens_results[[col_name]] = Takens
+  
+  # Plot the Takens embedding
+  plot(Takens, xlab = "x1", ylab = "x2", main = paste("Takens Embedding for", col_name))
+  
+  # Apply ripsDiag to the Takens embedding (or any other analysis)
+  diag = ripsDiag(Takens, maxdimension = 1, maxscale = max(dist(Takens)))
+  
+  # Plot the persistence diagram
+  plot(diag$diagram, main = paste("Persistence Diagram for", col_name))
+  
+  # Optionally, plot the time series itself
+  ts.plot(ts, main = paste("Time Series for", col_name))
+}
 
-ts = cab_roll
-ts = as.numeric(c(cab_roll[[1]]))
-
-tau = which(abs(acf(ts,plot=F)$acf) < 2/sqrt(n))[1]-1
-tau = 40
-Takens=t(purrr::map_dfc(1:(n-(d-1)*tau),~ts[seq(from=.x,by=tau,length.out=d)]))
-plot(Takens,xlab ="x1",ylab="x2",main=paste("Takens Embedding with Period =",period))
-
-
-diag=ripsDiag(Takens, maxdimension=1, maxscale=max(dist(Takens)))
-ts.plot(ts,main=paste("Period =",period))
-plot(Takens,xlab ="x1",ylab="x2",main=paste("Takens Embedding with Period =",period))
-plot(diag$diagram,main=paste("Persistence Diagram with Period =",period))
+# Optionally, inspect the results for any specific column (e.g., the first column)
+print(Takens_results[[2]])
