@@ -21,6 +21,7 @@ library(rgl)
 if (!require("tseries")) install.packages("tseries")
 library(tseries)
 
+
 if (!require("remotes")) install.packages("remotes")
 
 if (!require("devtools")) install.packages("devtools")
@@ -46,4 +47,6 @@ library(igraphdata)
 if (!require("TDAmapper")) remotes::install_github("corybrunson/tdaunif")
 library(tdaunif)
   
-if (!require("TDA")) install.packages("TDA") library(TDA)
+if (!require("TDA")) install.packages("TDA") 
+library(TDA)
+}
