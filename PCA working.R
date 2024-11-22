@@ -102,6 +102,22 @@ plot(pca_data, col=kmeans_result$cluster, pch=clusym[kmeans_result$cluster])
 
 cluster_assignments <- kmeans_result$cluster
 
+cluster_1 = X[cluster_assignments == 1, ]
+cluster_2 = X[cluster_assignments == 2, ]
+cluster_3 = X[cluster_assignments == 3, ]
+
+status_counts_1= table(cluster_1$ProjectStatus)
+status_counts_2 = table(cluster_2$ProjectStatus)
+status_counts_3= table(cluster_3$ProjectStatus)
+
+status_counts_1
+status_counts_2
+status_counts_3
+
+
+test = X[cluster_assignments == 2, ]
+test
+
 for (cluster in unique(cluster_assignments)) {
   cat("\nCluster", cluster, "averages:\n")
   
