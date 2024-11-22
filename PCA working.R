@@ -22,6 +22,26 @@ plot(scores[,1:2],col= plot_colors[as.numeric((X$ProjectStatus))],pch=1)
 legend("topright", legend = levels(X$ProjectStatus),pch = 16, col = plot_colors,cex=0.75,
        inset=c(0.02))
 
+#############
+# Find outlier
+
+distances <- sqrt(scores[,1]^2 + scores[,2]^2)
+reverse = rev(sort(distances))
+reverse
+
+outlier_index = which.max(distances)
+outlier_index
+print(X[outlier_index, ])
+
+# Plot the outlier
+
+plot(scores[,1:2], col = plot_colors[as.numeric(X$ProjectStatus)], pch = 1)
+points(scores[outlier_index,1], scores[outlier_index,2], col = "black", pch = 19, cex = 2)  # Highlight
+
+X_no_outlier = X[-outlier_index, ]
+
+##############
+##############
 
 plot3d(scores[,1:3],col= plot_colors[as.numeric((X$ProjectStatus))],pch=1)
 legend3d("topright", legend = levels(X$ProjectStatus),pch = 16, col = plot_colors,cex=0.75,
