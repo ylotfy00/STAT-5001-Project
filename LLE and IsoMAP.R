@@ -12,20 +12,23 @@ library(lle)
 X = PPP
 X=X[,1:16]
 X=as.matrix(X)
+X = X[-outlier_index, ]
 
-for (k in 2:10){
-  X_IM = Isomap(X,dims=1:6,k,plotResiduals=TRUE,verbose=FALSE)
+#best k is k = 9 best dimension = 2
+for (k in 5:10){
+  X_IM = Isomap(X,dims=1:3,k,plotResiduals=TRUE,verbose=FALSE)
   title(main = paste("Isomap Residual Variance Plot for k =",k))
   plot(X_IM$dim2,pch=1,xlab="Coordinate 1", ylab="Coordinate 2",
        main=paste("2D Isomap Coordinates for k = ",k))
 }
 
+
 for(t in 2:5){
   calc_k(X,t,kmin=1,kmax=10,plotres=TRUE)
   title(main = "LLE Residual Variance Plot for Intrinsic Dimension t= ",t)
 }
-
-k = 9
+#for 2d use 8 for 3d use 10
+k = 8
 X_LLE = lle(X,2,k)
 plot(X_LLE$Y,pch=1,xlab="Coordinate 1", ylab="Coordinate 2",
      main=paste("2D LLE Coordinates with k = ",k))
