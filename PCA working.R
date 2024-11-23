@@ -63,8 +63,9 @@ legend("topright", legend = levels(X$ProjectStatus),pch = 16, col = plot_colors,
        inset=c(0.02))
 install.packages("plotly")
 library(plotly)
-
+####
 pca_data <- as.data.frame(scores[, 1:2])
+kmeans_result = kmeans(pca_data, centers = 3)
 pca_data$Cluster <- as.factor(kmeans_result$cluster)  # Add cluster labels
 
 # Interactive scatter plot
@@ -137,4 +138,4 @@ for (cluster in unique(cluster_assignments)) {
 }
 
 
-cluster_2_data
+#cluster_2_data
